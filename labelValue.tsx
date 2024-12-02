@@ -6,7 +6,7 @@ type ValueProps = {
 }
 
 const Stat = ({ label, value }: ValueProps) => (
-    <View style={styles.valueContainer}>
+    <View>
         <Text style={styles.title}>{ label }</Text>
         <Text style={styles.text}>{ value }</Text>
     </View>
@@ -20,11 +20,6 @@ const styles = StyleSheet.create({
         backgroundColor: '#16101b',
         justifyContent: 'center',
         padding: 30,
-    },
-    valueContainer: {
-        marginRight: 50,
-        marginTop: 120,
-        marginBottom: -80,
     },
     mainTitle: {
         position: "absolute",
@@ -41,7 +36,7 @@ const styles = StyleSheet.create({
     },
     text: {
         fontFamily: 'Kalam-Regular',
-        fontSize: 30,
+        fontSize: 35,
         color: '#f5f5f5'
     },
     boldText: {

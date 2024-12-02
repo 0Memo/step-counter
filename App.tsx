@@ -21,12 +21,12 @@ export default function App() {
         <Text style={styles.boldText}>¡Cuenta tus pasos!</Text>
       </View>
 
-      <View style={{ flexDirection: 'row' }}>
+      <View style={styles.values}>
         <Stat label='Pasos' value='1219' />
         <Stat label='Distancia' value='0,7km' />
+        <Stat label='Vuelos subidos' value='0,7km' />
       </View>
 
-      <Stat label='Vuelos subidos' value='0,7km' />
 
       <StatusBar style="auto" />
     </View>
@@ -41,17 +41,19 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     padding: 30,
   },
-  valueContainer: {
-    marginRight: 50,
-    marginVertical: 10,
+  values: {
+    flexDirection: 'row',
+    gap: 25,
+    flexWrap: 'wrap',
   },
   mainTitle: {
     position: "absolute",
-    top: 220,
+    top: 130,
     left: 0,
     right: 0,
     bottom: 0,
-    alignItems: "center"
+    alignItems: "center",
+    color: '#f5f5f5'
     
   },
   title: {
