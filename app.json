@@ -23,6 +23,9 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "reactNativeRuntimeVersion": {
+      "experimental_use_bridgeless": false
     }
   }
 }
