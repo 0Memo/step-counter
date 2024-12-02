@@ -1,17 +1,10 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
-import { useFonts } from 'expo-font';
-import Stat from './labelValue';
+import FontsLoaded from './src/components/fontLoaded';
+import Value from './src/components/Value';
 
 export default function App() {
-
-  const [fontsLoaded] = useFonts({
-    'Kalam-Regular': require('./assets/fonts/Kalam-Regular.ttf'),
-    'Kalam-Bold': require('./assets/fonts/Kalam-Bold.ttf'),
-    'Kalam-Light': require('./assets/fonts/Kalam-Light.ttf'),
-  });
-
-  if (!fontsLoaded) {
+  if (!FontsLoaded) {
     return null;
   }
 
@@ -22,9 +15,9 @@ export default function App() {
       </View>
 
       <View style={styles.values}>
-        <Stat label='Pasos' value='1219' />
-        <Stat label='Distancia' value='0,7km' />
-        <Stat label='Vuelos subidos' value='0,7km' />
+        <Value label='Pasos' value='1219' />
+        <Value label='Distancia' value='0,7km' />
+        <Value label='Vuelos subidos' value='0,7km' />
       </View>
 
 

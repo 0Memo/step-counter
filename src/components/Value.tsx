@@ -5,14 +5,14 @@ type ValueProps = {
     value: string
 }
 
-const Stat = ({ label, value }: ValueProps) => (
+const Value = ({ label, value }: ValueProps) => (
     <View>
         <Text style={styles.title}>{ label }</Text>
         <Text style={styles.text}>{ value }</Text>
     </View>
 )
 
-export default Stat;
+export default Value;
 
 const styles = StyleSheet.create({
     container: {
