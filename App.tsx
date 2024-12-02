@@ -49,23 +49,10 @@ const styles = StyleSheet.create({
     color: '#f5f5f5'
     
   },
-  title: {
-    fontFamily: 'Kalam-Light',
-    fontSize: 22,
-    color: '#f5f5f5'
-  },
-  text: {
-    fontFamily: 'Kalam-Regular',
-    fontSize: 30,
-    color: '#f5f5f5'
-  },
   boldText: {
     fontFamily: 'Kalam-Bold',
     fontSize: 32,
     letterSpacing: 1.5,
     color: '#f5f5f5'
-  },
-  marginTop: {
-    marginTop: 20
   }
 });
