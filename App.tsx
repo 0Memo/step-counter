@@ -2,6 +2,7 @@ import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
 import FontsLoaded from './src/components/fontLoaded';
 import Value from './src/components/Value';
+import RingProgress from './src/components/RingProgress';
 
 export default function App() {
   if (!FontsLoaded) {
@@ -10,9 +11,11 @@ export default function App() {
 
   return (
     <View style={styles.container}>
-      <View style={styles.mainTitle}>
+      {/* <View style={styles.mainTitle}>
         <Text style={styles.boldText}>¡Cuenta tus pasos!</Text>
-      </View>
+      </View> */}
+
+      <RingProgress progress={ 0.25 } />
 
       <View style={styles.values}>
         <Value label='Pasos' value='1219' />
@@ -29,7 +32,7 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#16101b',
+    backgroundColor: '#0a070c',
     // alignItems: 'center',
     justifyContent: 'center',
     padding: 30,
@@ -38,6 +41,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     gap: 25,
     flexWrap: 'wrap',
+    marginVertical: 50
   },
   mainTitle: {
     position: "absolute",
