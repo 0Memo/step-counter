@@ -15,7 +15,7 @@ export default function App() {
         <Text style={styles.boldText}>¡Cuenta tus pasos!</Text>
       </View> */}
 
-      <RingProgress progress={ 0.25 } />
+      <RingProgress progress={ 0.7 } />
 
       <View style={styles.values}>
         <Value label='Pasos' value='1219' />
