@@ -3,6 +3,7 @@ import { StyleSheet, Text, View } from 'react-native';
 import FontsLoaded from './src/components/fontLoaded';
 import Value from './src/components/Value';
 import RingProgress from './src/components/RingProgress';
+// import AppleHealthKit from 'react-native-health';
 
 export default function App() {
   if (!FontsLoaded) {

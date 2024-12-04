@@ -13,19 +13,29 @@
       "backgroundColor": "#ffffff"
     },
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.memo83.StepCounter"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.memo83.StepCounter"
     },
     "web": {
       "favicon": "./assets/favicon.png"
     },
     "reactNativeRuntimeVersion": {
       "experimental_use_bridgeless": false
+    },
+    "plugins": [
+      "react-native-health"
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "202235a8-e22f-45eb-934c-51081a7b6ede"
+      }
     }
   }
 }
