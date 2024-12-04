@@ -30,7 +30,18 @@
       "experimental_use_bridgeless": false
     },
     "plugins": [
-      "react-native-health"
+      [
+        "expo-build-properties",
+        {
+          "android": {
+            "compileSdkVersion": 34,
+            "targetSdkVersion": 34,
+            "minSdkVersion": 26
+          }
+        }
+      ],
+      "react-native-health",
+      "react-native-health-connect"
     ],
     "extra": {
       "eas": {
