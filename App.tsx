@@ -3,9 +3,34 @@ import { StyleSheet, Text, View } from 'react-native';
 import FontsLoaded from './src/components/fontLoaded';
 import Value from './src/components/Value';
 import RingProgress from './src/components/RingProgress';
+import * as Font from 'expo-font';
+import * as SplashScreen from 'expo-splash-screen';
+import { useEffect, useState } from 'react';
 // import AppleHealthKit from 'react-native-health';
 
+// Prevent the splash screen from auto-hiding
+SplashScreen.preventAutoHideAsync();
+
 export default function App() {
+
+  const [fontsLoaded, setFontsLoaded] = useState(false);
+
+  useEffect(() => {
+    async function loadFonts() {
+      // Load fonts
+      await Font.loadAsync({
+        'Kalam-Bold': require('./assets/fonts/Kalam-Bold.ttf'),
+        // Add other fonts as needed
+      });
+
+      // Hide splash screen once fonts are loaded
+      setFontsLoaded(true);
+      SplashScreen.hideAsync();
+    }
+
+    loadFonts();
+  }, []);
+  
   if (!FontsLoaded) {
     return null;
   }
