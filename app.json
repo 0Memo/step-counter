@@ -21,7 +21,12 @@
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "package": "com.memo83.StepCounter"
+      "package": "com.memo83.StepCounter",
+      "permissions": [
+        "android.permission.health.READ_STEPS",
+        "android.permission.health.READ_FLOORS_CLIMBED",
+        "android.permission.health.READ_DISTANCE"
+      ]
     },
     "web": {
       "favicon": "./assets/favicon.png"
@@ -30,18 +35,20 @@
       "experimental_use_bridgeless": false
     },
     "plugins": [
+      "react-native-health",
+      "react-native-health-connect",
+      "./androidManifestPlugin.js",
       [
         "expo-build-properties",
         {
           "android": {
             "compileSdkVersion": 34,
             "targetSdkVersion": 34,
+            "buildToolsVersion": "34.0.0",
             "minSdkVersion": 26
           }
         }
-      ],
-      "react-native-health",
-      "react-native-health-connect"
+      ]
     ],
     "extra": {
       "eas": {
