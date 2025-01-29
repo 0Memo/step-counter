@@ -1,63 +1,41 @@
+// Top-level build file where you can add configuration options common to all sub-projects/modules.
+
 buildscript {
     ext {
-        // Build tool versions
-        buildToolsVersion = findProperty('android.buildToolsVersion') ?: '34.0.0'
-        minSdkVersion = Integer.parseInt(findProperty('android.minSdkVersion') ?: '26')
-        compileSdkVersion = Integer.parseInt(findProperty('android.compileSdkVersion') ?: '34')
+        buildToolsVersion = findProperty('android.buildToolsVersion') ?: '35.0.0'
+        minSdkVersion = Integer.parseInt(findProperty('android.minSdkVersion') ?: '24')
+        compileSdkVersion = Integer.parseInt(findProperty('android.compileSdkVersion') ?: '35')
         targetSdkVersion = Integer.parseInt(findProperty('android.targetSdkVersion') ?: '34')
-        kotlinVersion = findProperty('android.kotlinVersion') ?: '1.6.10'
+        kotlinVersion = findProperty('android.kotlinVersion') ?: '2.0.21'
 
-        // NDK version
-        ndkVersion = "26.1.10909125"
+        ndkVersion = "27.1.12297006"
     }
-
     repositories {
         google()
         mavenCentral()
     }
-
     dependencies {
-        // Android Gradle Plugin
-        classpath('com.android.tools.build:gradle:7.0.4')
-
-        // React Native Gradle Plugin
-        classpath('com.facebook.react:react-native-gradle-plugin:0.68.0')
-
-        // Kotlin Gradle Plugin
-        classpath('org.jetbrains.kotlin:kotlin-gradle-plugin:1.6.10')
+        classpath('com.android.tools.build:gradle')
+        classpath('com.facebook.react:react-native-gradle-plugin')
+        classpath('org.jetbrains.kotlin:kotlin-gradle-plugin')
     }
 }
 
-// Apply React Native root project plugin
 apply plugin: "com.facebook.react.rootproject"
 
-// Common repository configuration for all sub-projects
 allprojects {
     repositories {
         maven {
-            // React Native specific directories
-            url("$rootDir/../node_modules/react-native/android")
+            // All of React Native (JS, Obj-C sources, Android binaries) is installed from npm
+            url(new File(['node', '--print', "require.resolve('react-native/package.json')"].execute(null, rootDir).text.trim(), '../android'))
         }
         maven {
-            // JavaScriptCore for Android
-            url("$rootDir/../node_modules/jsc-android/dist")
+            // Android JSC is installed from npm
+            url(new File(['node', '--print', "require.resolve('jsc-android/package.json', { paths: [require.resolve('react-native/package.json')] })"].execute(null, rootDir).text.trim(), '../dist'))
         }
+
         google()
         mavenCentral()
         maven { url 'https://www.jitpack.io' }
-    }
-}
-
-// Fix for expo-dev-menu lint tasks if applicable
-gradle.projectsEvaluated {
-    subprojects { subproject ->
-        if (subproject.name == "expo-dev-menu") {
-            subproject.tasks.matching { it.name == "lintAnalyzeDebug" }.configureEach {
-                dependsOn(subproject.tasks.named("copyAssets"))
-            }
-            subproject.tasks.named("generateDebugLintModel") {
-                dependsOn subproject.tasks.named("copyAssets")
-            }
-        }
     }
 }

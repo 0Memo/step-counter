@@ -112,27 +112,21 @@ const useHealthData = (date: Date) => {
 
         // Steps
         const steps = await readRecords('Steps', { timeRangeFilter });
-        const totalSteps = steps.records.reduce(
-            (sum, cur) => sum + (cur.count ?? 0), // Ensure count exists
-            0
-        );
+        const totalSteps = steps.records.reduce((sum, cur) => sum + cur.count, 0);
         setSteps(totalSteps);
 
         // Distance
         const distance = await readRecords('Distance', { timeRangeFilter });
         const totalDistance = distance.records.reduce(
-            (sum: any, cur: { distance: { inMeters: any; }; }) => sum + cur.distance.inMeters,
+            (sum, cur) => sum + (cur.distance?.inMeters || 0),
             0
         );
         setDistance(totalDistance);
 
         // Floors climbed
-        const floorsClimbed = await readRecords('FloorsClimbed', {
-            timeRangeFilter,
-        });
-        const totalFloors = floorsClimbed.records.reduce((sum: any, cur: { floors: any; }) => sum + cur.floors, 0);
+        const floorsClimbed = await readRecords('FloorsClimbed', { timeRangeFilter });
+        const totalFloors = floorsClimbed.records.reduce((sum, cur) => sum + cur.floors, 0);
         setFlights(totalFloors);
-        // console.log(floorsClimbed);
     };
 
     useEffect(() => {
