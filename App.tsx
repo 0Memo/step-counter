@@ -6,7 +6,7 @@ import RingProgress from './src/components/RingProgress';
 import * as Font from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
 import { useEffect, useState } from 'react';
-import React from 'react';
+// import React from 'react';
 import useHealthData from './src/hooks/useHealthData';
 import { AntDesign } from '@expo/vector-icons';
 // import AppleHealthKit from 'react-native-health';

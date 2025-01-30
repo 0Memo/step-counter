@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import /* React, */ { useEffect } from 'react';
 import { View } from 'react-native';
 import Svg, { Circle, CircleProps } from 'react-native-svg';
 import Animated, { useAnimatedProps, useSharedValue, withTiming } from 'react-native-reanimated';
