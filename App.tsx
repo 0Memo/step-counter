@@ -6,12 +6,27 @@ import RingProgress from './src/components/RingProgress';
 import * as Font from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
 import { useEffect, useState } from 'react';
+import React from 'react';
+import useHealthData from './src/hooks/useHealthData';
+import { AntDesign } from '@expo/vector-icons';
 // import AppleHealthKit from 'react-native-health';
 
 // Prevent the splash screen from auto-hiding
 SplashScreen.preventAutoHideAsync();
 
+const STEPS_GOAL = 10_000;
+
 export default function App() {
+  const [date, setDate] = useState(new Date());
+  const { steps, flights, distance } = useHealthData(date);
+
+  const changeDate = (numDays: number) => {
+    const currentDate = new Date(date); // Create a copy of the current date
+    // Update the date by adding/subtracting the number of days
+    currentDate.setDate(currentDate.getDate() + numDays);
+
+    setDate(currentDate); // Update the state variable
+  };
 
   const [fontsLoaded, setFontsLoaded] = useState(false);
 
@@ -37,18 +52,34 @@ export default function App() {
 
   return (
     <View style={styles.container}>
-      {/* <View style={styles.mainTitle}>
-        <Text style={styles.boldText}>¡Cuenta tus pasos!</Text>
-      </View> */}
+      <View style={styles.datePicker}>
+        <AntDesign
+          onPress={() => changeDate(-1)}
+          name="left"
+          size={20}
+          color="#C3FF53"
+        />
+        <Text style={styles.date}>{date.toDateString()}</Text>
 
-      <RingProgress progress={ 0.7 } />
-
-      <View style={styles.values}>
-        <Value label='Pasos' value='1219' />
-        <Value label='Distancia' value='0,7km' />
-        <Value label='Vuelos subidos' value='0,7km' />
+        <AntDesign
+          onPress={() => changeDate(1)}
+          name="right"
+          size={20}
+          color="#C3FF53"
+        />
       </View>
 
+      <RingProgress
+        radius={150}
+        strokeWidth={50}
+        progress={steps / STEPS_GOAL}
+      />
+
+      <View style={styles.values}>
+        <Value label="Steps" value={steps.toString()} />
+        <Value label="Distance" value={`${(distance / 1000).toFixed(2)} km`} />
+        <Value label="Flights Climbed" value={flights.toString()} />
+      </View>
 
       <StatusBar style="auto" />
     </View>
@@ -84,5 +115,17 @@ const styles = StyleSheet.create({
     fontSize: 32,
     letterSpacing: 1.5,
     color: '#f5f5f5'
-  }
+  },
+  datePicker: {
+    alignItems: 'center',
+    padding: 20,
+    flexDirection: 'row',
+    justifyContent: 'center',
+  },
+  date: {
+    color: 'white',
+    fontWeight: '500',
+    fontSize: 20,
+    marginHorizontal: 20,
+  },
 });

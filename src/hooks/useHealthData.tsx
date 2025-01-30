@@ -93,16 +93,21 @@ const useHealthData = (date: Date) => {
     const readSampleData = async () => {
         // initialize the client
         const isInitialized = await initialize();
-            if (!isInitialized) {
+        if (!isInitialized) {
             return;
         }
 
-        // request permissions
-        await requestPermission([
+        // Request permissions only if not already granted
+        const permissionsGranted = await requestPermission([
             { accessType: 'read', recordType: 'Steps' },
             { accessType: 'read', recordType: 'Distance' },
             { accessType: 'read', recordType: 'FloorsClimbed' },
         ]);
+    
+        if (!permissionsGranted) {
+            console.log('Permissions not granted');
+            return;
+        }
 
         const timeRangeFilter: TimeRangeFilter = {
             operator: 'between',
@@ -110,28 +115,32 @@ const useHealthData = (date: Date) => {
             endTime: new Date(date.setHours(23, 59, 59, 999)).toISOString(),
         };
 
-        // Steps
-        const steps = await readRecords('Steps', { timeRangeFilter });
-        const totalSteps = steps.records.reduce((sum, cur) => sum + cur.count, 0);
-        setSteps(totalSteps);
+        try {
+            // Steps
+            const steps = await readRecords('Steps', { timeRangeFilter });
+            const totalSteps = steps.records.reduce((sum, cur) => sum + cur.count, 0);
+            setSteps(totalSteps);
 
-        // Distance
-        const distance = await readRecords('Distance', { timeRangeFilter });
-        const totalDistance = distance.records.reduce(
-            (sum, cur) => sum + (cur.distance?.inMeters || 0),
-            0
-        );
-        setDistance(totalDistance);
+            // Distance
+            const distance = await readRecords('Distance', { timeRangeFilter });
+            const totalDistance = distance.records.reduce(
+                (sum, cur) => sum + (cur.distance?.inMeters || 0),
+                0
+            );
+            setDistance(totalDistance);
 
-        // Floors climbed
-        const floorsClimbed = await readRecords('FloorsClimbed', { timeRangeFilter });
-        const totalFloors = floorsClimbed.records.reduce((sum, cur) => sum + cur.floors, 0);
-        setFlights(totalFloors);
+            // Floors climbed
+            const floorsClimbed = await readRecords('FloorsClimbed', { timeRangeFilter });
+            const totalFloors = floorsClimbed.records.reduce((sum, cur) => sum + cur.floors, 0);
+            setFlights(totalFloors);
+        } catch (err) {
+            console.log('Error reading health data', err);
+        }
     };
 
     useEffect(() => {
         if (Platform.OS !== 'android') {
-        return;
+            return;
         }
         readSampleData();
     }, [date]);
