@@ -31,9 +31,6 @@
     "web": {
       "favicon": "./assets/favicon.png"
     },
-    "reactNativeRuntimeVersion": {
-      "experimental_use_bridgeless": false
-    },
     "plugins": [
       "react-native-health",
       "react-native-health-connect",
@@ -53,6 +50,15 @@
     "extra": {
       "eas": {
         "projectId": "202235a8-e22f-45eb-934c-51081a7b6ede"
+      }
+    },
+    "doctor": {
+      "reactNativeDirectoryCheck": {
+        "exclude": [
+          "react-native-health",
+          "@react-native/gradle-plugin",
+          "expo-dev-menu"
+        ]
       }
     }
   }
